@@ -15,15 +15,16 @@ const httpClient = (url, options = {}) => {
 }
 
 export default {
-  getList: (resource, params) => //{
-    httpClient(`${apiUrl}/${resource}`, {
-        method: 'GET',
-    }).then(({ json }) => ({ data: json })),
-    // const url = `${apiUrl}/${resource}`;
-    // return httpClient(url).then(({headers, json}) => ({
-    //   data: json,
-    // }));
-// },
+  getList: (resource, params) => {
+    const url = `${apiUrl}/${resource}`;
+    console.log(url);
+    return httpClient(url).then(({headers, json}) => (
+      console.log(headers),
+      {
+      data: json,
+      total: parseInt(headers.get('content-range').split('/').pop(), 10),
+    }));
+},
 getOne: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
             data: json,

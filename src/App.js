@@ -17,7 +17,7 @@ const httpClient = (url, options = {}) => {
 // const dataProvider = simpleRestProvider('https://letters-api-staging.ameelio.org/api', httpClient);
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={dataProvider}>
-      <Resource name="categories" list={ListGuesser}/>
+      <Resource name="admin-categories" list={ListGuesser}/>
     </Admin>
 );
 export default App;
