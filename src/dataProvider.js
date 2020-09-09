@@ -16,11 +16,13 @@ const httpClient = (url, options = {}) => {
 
 export default {
   getList: (resource, params) => {
-    const url = `${apiUrl}/${resource}`;
+    const {page, perPage} = params.pagination;
+    const query = {
+      range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+    };
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
     console.log(url);
-    return httpClient(url).then(({headers, json}) => (
-      console.log(headers),
-      {
+    return httpClient(url).then(({headers, json}) => ({
       data: json,
       total: parseInt(headers.get('content-range').split('/').pop(), 10),
     }));
