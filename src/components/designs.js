@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { loadImageUrl } from '../utils/helper';
 
 export const DesignsList = props => (
   <List {...props}>
@@ -17,14 +18,6 @@ export const DesignsList = props => (
     </Datagrid>
   </List>
 );
-
-export function loadImageUrl(value) {
-  if (!value || typeof value === "string") {
-    return { url: value};
-  } else {
-    return value;
-  }
-}
 
 export const DesignsEdit = props => (
   <Edit {...props}>

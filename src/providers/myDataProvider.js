@@ -2,7 +2,7 @@ import { fetchUtils } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 import { uploadImage, create, fetchJson } from '../utils/helper';
 
-const dataProvider = simpleRestProvider('http://localhost:8000/api', fetchJson);
+const dataProvider = simpleRestProvider(process.env.REACT_APP_API_URL, fetchJson);
 
 const myDataProvider = {
   ...dataProvider,

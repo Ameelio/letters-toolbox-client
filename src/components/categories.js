@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DeleteButton, List, Datagrid, TextField, ImageField, Edit, ImageInput, SimpleForm, TextInput, required, EditButton, Create } from 'react-admin';
+import { loadImageUrl } from '../utils/helper';
 
 export const CategoriesList = props => (
   <List {...props}>
@@ -13,13 +14,6 @@ export const CategoriesList = props => (
     </Datagrid>
   </List>
 );
-export function loadImageUrl(value) {
-  if (!value || typeof value === "string") {
-    return { url: value};
-  } else {
-    return value;
-  }
-}
 
 export const CategoriesCreate = props => (
   <Create {...props}>

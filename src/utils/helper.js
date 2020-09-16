@@ -67,3 +67,11 @@ export async function create(resource, body, params) {
         data: { ...params.data, id: json.data.id },
     }));
 };
+
+export function loadImageUrl(value) {
+  if (!value || typeof value === "string") {
+    return { url: value};
+  } else {
+    return value;
+  }
+}
