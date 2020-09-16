@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, Datagrid, TextField, ImageField, Edit, ImageInput, SimpleForm, TextInput, required, EditButton, Create } from 'react-admin';
+import { DeleteButton, List, Datagrid, TextField, ImageField, Edit, ImageInput, SimpleForm, TextInput, required, EditButton, Create } from 'react-admin';
 
 export const CategoriesList = props => (
   <List {...props}>
@@ -9,17 +9,25 @@ export const CategoriesList = props => (
       <TextField source="blurb" />
       <ImageField source="img_src" title="Image"/>
       <EditButton />
+      <DeleteButton />
     </Datagrid>
   </List>
 );
+export function loadImageUrl(value) {
+  if (!value || typeof value === "string") {
+    return { url: value};
+  } else {
+    return value;
+  }
+}
 
 export const CategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />
       <TextInput source="blurb" />
-      <ImageInput source="img_src" label="Image" accept="image/*">
-        <ImageField source="src" />
+      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*">
+        <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
   </Create>
@@ -31,8 +39,8 @@ export const CategoriesEdit = props => (
       <TextInput disabled label="Id" source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="blurb" validate={required()} />
-      <ImageInput source="img_src" label="Image" accept="image/*">
-        <ImageField source="src" />
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*">
+        <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
   </Edit>
