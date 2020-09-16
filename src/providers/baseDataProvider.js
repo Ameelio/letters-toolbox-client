@@ -4,7 +4,7 @@ import { uploadImage, create, fetchJson } from '../utils/helper';
 
 const dataProvider = simpleRestProvider(process.env.REACT_APP_API_URL, fetchJson);
 
-const myDataProvider = {
+const baseDataProvider = {
   ...dataProvider,
   update: (resource, params) => {
     if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src) {
@@ -43,4 +43,4 @@ const myDataProvider = {
   },
 };
 
-export default myDataProvider;
+export default baseDataProvider;
