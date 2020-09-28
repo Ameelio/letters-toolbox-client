@@ -13,6 +13,7 @@ export const DesignsList = props => (
       <TextField source="type" />
       <TextField source="back" />
       <TextField source="subcategory_id" />
+      <TextField source="active" />
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -26,6 +27,7 @@ export const DesignsEdit = props => (
       <TextInput source="name" validate={required()} />
       <TextInput source="type" validate={required()} />
       <TextInput source="subcategory" validate={required()} />
+      <TextInput source="active" />
       <TextInput source="back" />
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
@@ -40,6 +42,7 @@ export const DesignsCreate = props => (
       <TextInput source="name" validate={required()} />
       <TextInput source="type" validate={required()} />
       <TextInput source="subcategory" validate={required()} />
+      <TextInput source="active" />
       <TextInput source="back" />
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />

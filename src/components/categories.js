@@ -9,6 +9,7 @@ export const CategoriesList = props => (
       <TextField source="name" />
       <TextField source="blurb" />
       <ImageField source="img_src" title="Image"/>
+      <TextField source="active" />
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -18,9 +19,10 @@ export const CategoriesList = props => (
 export const CategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
+      <TextInput source="name" validate={required()}/>
       <TextInput source="blurb" />
-      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*">
+      <TextInput source="active" />
+      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
@@ -33,7 +35,8 @@ export const CategoriesEdit = props => (
       <TextInput disabled label="Id" source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="blurb" validate={required()} />
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*">
+      <TextInput source="active" />
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
