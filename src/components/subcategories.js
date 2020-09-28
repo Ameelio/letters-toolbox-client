@@ -8,7 +8,9 @@ export const SubcategoriesList = props => (
       <TextField source="name" />
       <DateField source="created_at" />
       <DateField source="updated_at" />
-      <TextField source="design_category_id" />
+      <ReferenceField label="Category" source="design_category_id" reference="admin-categories">
+        <TextField source="name" />
+      </ReferenceField>
       <EditButton />
       <DeleteButton />
     </Datagrid>

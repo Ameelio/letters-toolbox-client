@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
+import { SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
 
 export const VolunteersList = props => (
   <List {...props}>
@@ -23,7 +23,10 @@ export const VolunteersEdit = props => (
       <TextInput disabled source="id" />
       <TextInput source="first_name" validate={required()} />
       <TextInput source="last_name" validate={required()} />
-      <TextInput source="type" validate={required()} />
+      <SelectInput source="type" validate={required()} choices={[
+        { id: 'designer', name: 'Designer'},
+        { id: 'content_researcher', name: 'Content Researcher' }
+      ]} />
       <TextInput source="email" validate={required()}/>
       <TextInput source="active" />
     </SimpleForm>
@@ -35,7 +38,10 @@ export const VolunteersCreate = props => (
     <SimpleForm>
       <TextInput source="first_name" validate={required()} />
       <TextInput source="last_name" validate={required()} />
-      <TextInput source="type" validate={required()} />
+      <SelectInput source="type" validate={required()} choices={[
+        { id: 'designer', name: 'Designer'},
+        { id: 'content_researcher', name: 'Content Researcher' }
+      ]} />
       <TextInput source="email" validate={required()} />
       <TextInput source="active" />
     </SimpleForm>

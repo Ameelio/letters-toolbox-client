@@ -10,9 +10,9 @@ import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={ baseDataProvider }>
-      <Resource name="admin-categories" list={ CategoriesList } edit={ CategoriesEdit } create={ CategoriesCreate } />
-      <Resource name="admin-designs" list={ DesignsList } edit={ DesignsEdit } create={ DesignsCreate } />
-      <Resource name="admin-subcategories" list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate } />
+      <Resource name="admin-designs" options={{ label: "Designs" }} list={ DesignsList } edit={ DesignsEdit } create={ DesignsCreate } />
+      <Resource name="admin-categories" options={{ label: "Categories" }} list={ CategoriesList } edit={ CategoriesEdit } create={ CategoriesCreate } />
+      <Resource name="admin-subcategories" options={{ label: "Subcategories" }} list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate } />
       <Resource name="volunteers" list={ VolunteersList } edit={ VolunteersEdit } create={ VolunteersCreate } />
       <Resource name="collections" list={ CollectionsList } edit={ CollectionsEdit } create={ CollectionsCreate } />
     </Admin>
