@@ -1,24 +1,22 @@
 import * as React from "react";
-import { ArrayInput, SimpleFormIterator, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 
 export const DesignsList = props => (
   <List {...props}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
+      <DateField source="created_at" />
       <TextField source="name" />
       <ImageField source="thumbnail_src" title="image"/>
-      <DateField source="created_at" />
-      <TextField source="type" />
-      <TextField source="back" />
       <ReferenceField label="Subcategory" source="subcategory_id" reference="admin-subcategories">
         <TextField source="name" />
       </ReferenceField>
       <ReferenceField label="Collection" source="design_collection_id" reference="collections">
         <TextField source="name" />
       </ReferenceField>
-      <TextField source="active" />
-      <TextField source="volunteer_ids" />
+      <FunctionField source="active" label="Active" render={(record,source) =>
+        <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -34,8 +32,13 @@ export const DesignsEdit = props => (
         { id: 'postcard', name: 'Postcard'},
         { id: 'letter', name: 'Letter' }
       ]} />
-      <TextInput source="subcategory" validate={required()} />
-      <TextInput source="active" />
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <BooleanInput label="Active" source="active" />
       <TextInput source="back" />
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
@@ -45,7 +48,6 @@ export const DesignsEdit = props => (
           <TextInput />
         </SimpleFormIterator>
       </ArrayInput>
-      <TextInput source="collection" />
     </SimpleForm>
   </Edit>
 );
@@ -58,8 +60,13 @@ export const DesignsCreate = props => (
         { id: 'postcard', name: 'Postcard'},
         { id: 'letter', name: 'Letter' }
       ]} />
-      <TextInput source="subcategory" validate={required()} />
-      <TextInput source="active" />
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <BooleanInput label="Active" source="active" />
       <TextInput source="back" />
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
@@ -69,7 +76,6 @@ export const DesignsCreate = props => (
           <TextInput />
         </SimpleFormIterator>
       </ArrayInput>
-      <TextInput source="collection" />
     </SimpleForm>
   </Create>
 );

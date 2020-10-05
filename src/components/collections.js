@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
+import { BooleanField, BooleanInput, FunctionField, DeleteButton, EditButton, List, Datagrid, TextField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
 
 export const CollectionsList = props => (
   <List {...props}>
@@ -7,7 +7,8 @@ export const CollectionsList = props => (
       <TextField source="id" />
       <TextField source="name" />
       <TextField source="last_active" />
-      <TextField source="active" />
+      <FunctionField source="active" label="Active" render={(record,source) =>
+        <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -20,7 +21,7 @@ export const CollectionsEdit = props => (
       <TextInput disabled source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="last_active" />
-      <TextInput source="active" />
+      <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Edit>
 );
@@ -30,7 +31,7 @@ export const CollectionsCreate = props => (
     <SimpleForm>
       <TextInput source="name" validate={required()} />
       <TextInput source="active" />
-      <TextInput source="last_active" />
+      <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Create>
 );
