@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { Admin, Resource } from 'react-admin';
+import authProvider from './providers/authProvider';
+import { CategoriesList, CategoriesEdit, CategoriesCreate } from './components/categories';
+import { DesignsList, DesignsEdit, DesignsCreate } from './components/designs';
+import { SubcategoriesList, SubcategoriesEdit, SubcategoriesCreate } from './components/subcategories';
+import baseDataProvider from './providers/baseDataProvider';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
+const App = () => (
+    <Admin authProvider={authProvider} dataProvider={ baseDataProvider }>
+      <Resource name="admin-categories" list={ CategoriesList } edit={ CategoriesEdit } create={ CategoriesCreate } />
+      <Resource name="admin-designs" list={ DesignsList } edit={ DesignsEdit } create={ DesignsCreate }/>
+      <Resource name="admin-subcategories" list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate }/>
+    </Admin>
+);
 export default App;
