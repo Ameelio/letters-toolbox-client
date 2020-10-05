@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { ArrayInput, SimpleFormIterator, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 
 export const DesignsList = props => (
@@ -40,7 +40,11 @@ export const DesignsEdit = props => (
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
-      <TextInput source="volunteer_ids" />
+      <ArrayInput source="volunteer_ids">
+        <SimpleFormIterator>
+          <TextInput />
+        </SimpleFormIterator>
+      </ArrayInput>
       <TextInput source="collection" />
     </SimpleForm>
   </Edit>
@@ -60,7 +64,11 @@ export const DesignsCreate = props => (
       <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
-      <TextInput source="volunteer_ids" />
+      <ArrayInput source="volunteer_ids">
+        <SimpleFormIterator>
+          <TextInput />
+        </SimpleFormIterator>
+      </ArrayInput>
       <TextInput source="collection" />
     </SimpleForm>
   </Create>
