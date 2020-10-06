@@ -19,10 +19,8 @@ const authProvider = {
   },
 
   checkError: ({ status }) => {
-    if (status !== 200) {
-        if (status === 401) {
-          localStorage.removeItem('token');
-        }
+    if (status === 401) {
+      localStorage.removeItem('token');
       return Promise.reject();
     }
     return Promise.resolve();

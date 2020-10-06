@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DeleteButton, List, Datagrid, TextField, ImageField, Edit, ImageInput, SimpleForm, TextInput, required, EditButton, Create } from 'react-admin';
+import { BooleanInput, BooleanField, FunctionField, DeleteButton, List, Datagrid, TextField, ImageField, Edit, ImageInput, SimpleForm, TextInput, required, EditButton, Create } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 
 export const CategoriesList = props => (
@@ -9,6 +9,8 @@ export const CategoriesList = props => (
       <TextField source="name" />
       <TextField source="blurb" />
       <ImageField source="img_src" title="Image"/>
+      <FunctionField source="active" label="Active" render={(record,source) =>
+        <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -18,11 +20,12 @@ export const CategoriesList = props => (
 export const CategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
+      <TextInput source="name" validate={required()}/>
       <TextInput source="blurb" />
-      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*">
+      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
+      <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Create>
 );
@@ -33,7 +36,8 @@ export const CategoriesEdit = props => (
       <TextInput disabled label="Id" source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="blurb" validate={required()} />
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*">
+      <BooleanInput label="Active" source="active" />
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
         <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
