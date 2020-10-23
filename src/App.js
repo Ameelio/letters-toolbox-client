@@ -6,6 +6,8 @@ import { DesignsList, DesignsEdit, DesignsCreate } from './components/designs';
 import { SubcategoriesList, SubcategoriesEdit, SubcategoriesCreate } from './components/subcategories';
 import { VolunteersList, VolunteersEdit, VolunteersCreate } from './components/volunteers';
 import { CollectionsList, CollectionsEdit, CollectionsCreate } from './components/collections';
+import { UsersList, UsersEdit, UsersCreate } from './components/users';
+import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
 import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
@@ -15,6 +17,9 @@ const App = () => (
       <Resource name="admin-subcategories" options={{ label: "Subcategories" }} list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate } />
       <Resource name="volunteers" list={ VolunteersList } edit={ VolunteersEdit } create={ VolunteersCreate } />
       <Resource name="collections" list={ CollectionsList } edit={ CollectionsEdit } create={ CollectionsCreate } />
+      <Resource name="products" list={ ProductsList } edit={ ProductsEdit } create={ ProductsCreate } />
+      <Resource name="user" list={ UsersList } edit={ UsersEdit } create={ UsersCreate } />
+      <Resource name="letters" />
     </Admin>
 );
 export default App;

@@ -1,6 +1,27 @@
 import * as React from "react";
-import { FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { FormDataConsumer, FileInput, FileField, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
+import { useFormState } from 'react-final-form';
+
+const types = [
+  { id: 'postcard', name: 'Postcard'},
+  { id: 'letter', name: 'Letter' },
+  { id: 'packet', name: 'Packet'}
+];
+
+const DesignUpload = props => {
+  const { values } = useFormState();
+  return (
+    values.type === 'postcard' ?
+      <ImageInput format={ loadImageUrl } source="asset_src" label="Image" accept="image/*" validate={required()} {...props}>
+        <ImageField source="url" />
+      </ImageInput> :
+
+      <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
+        <FileField source="src" title="title" />
+      </FileInput>
+  );
+};
 
 export const DesignsList = props => (
   <List {...props}>
@@ -28,10 +49,7 @@ export const DesignsEdit = props => (
     <SimpleForm>
       <TextInput disabled label="ID" source="id" />
       <TextInput source="name" validate={required()} />
-      <SelectInput source="type" validate={required()} choices={[
-        { id: 'postcard', name: 'Postcard'},
-        { id: 'letter', name: 'Letter' }
-      ]} />
+      <SelectInput source="type" validate={required()} choices={ types } />
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
@@ -39,10 +57,11 @@ export const DesignsEdit = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <TextInput source="back" />
-      <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
-        <ImageField source="url" />
-      </ImageInput>
+      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <TextInput source="blurb" />
+      <DesignUpload />
       <ArrayInput source="volunteer_ids">
         <SimpleFormIterator>
           <TextInput />
@@ -56,10 +75,7 @@ export const DesignsCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" validate={required()} />
-      <SelectInput source="type" validate={required()} choices={[
-        { id: 'postcard', name: 'Postcard'},
-        { id: 'letter', name: 'Letter' }
-      ]} />
+      <SelectInput source="type" validate={required()} choices={ types } />
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
@@ -67,10 +83,11 @@ export const DesignsCreate = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <TextInput source="back" />
-      <ImageInput format={ loadImageUrl } source="front_img_src" label="Image" accept="image/*" validate={required()}>
-        <ImageField source="url" />
-      </ImageInput>
+      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <TextInput source="blurb" />
+      <DesignUpload />
       <ArrayInput source="volunteer_ids">
         <SimpleFormIterator>
           <TextInput />
