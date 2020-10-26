@@ -8,6 +8,7 @@ import { VolunteersList, VolunteersEdit, VolunteersCreate } from './components/v
 import { CollectionsList, CollectionsEdit, CollectionsCreate } from './components/collections';
 import { UsersList, UsersEdit, UsersCreate } from './components/users';
 import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
+import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/facilities';
 import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
@@ -20,6 +21,7 @@ const App = () => (
       <Resource name="products" list={ ProductsList } edit={ ProductsEdit } create={ ProductsCreate } />
       <Resource name="user" list={ UsersList } edit={ UsersEdit } create={ UsersCreate } />
       <Resource name="letters" />
+      <Resource name="facility" list={ FacilitiesList } edit={ FacilitiesEdit } create={ FacilitiesCreate }/>
     </Admin>
 );
 export default App;
