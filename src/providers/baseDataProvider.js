@@ -14,12 +14,21 @@ const baseDataProvider = {
         total: resp.total,
       }))
   },
+
   getOne: (resource, params) => {
     return dataProvider.getOne(resource, params)
       .then(resp => ({
         data: resp.data.data,
-      }))
+      }));
   },
+
+  getMany: (resource, params) => {
+    return dataProvider.getMany(resource, params)
+      .then(resp => ({
+        data: resp.data.data,
+      }));
+  },
+
   update: (resource, params) => {
     if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src) {
       return dataProvider.update(resource, params);
