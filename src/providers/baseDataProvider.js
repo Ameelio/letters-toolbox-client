@@ -12,7 +12,7 @@ const baseDataProvider = {
       .then(resp => ({
         data: resp.data.data,
         total: resp.total,
-      }))
+      }));
   },
 
   getOne: (resource, params) => {
@@ -29,6 +29,14 @@ const baseDataProvider = {
       }));
   },
 
+  getManyReference: (resource, params) => {
+      return dataProvider.getManyReference(resource, params)
+        .then(resp => ({
+          data: resp.data.data,
+          total: resp.total,
+        }));
+  },
+
   update: (resource, params) => {
     if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src) {
       return dataProvider.update(resource, params);
@@ -43,14 +51,15 @@ const baseDataProvider = {
             });
           case 'admin-designs':
           return dataProvider.update(resource, { ...params,
-            data: {...params.data, front_img_src: s3_img_url},
+            data: {...params.data, asset_src: s3_img_url},
           });
         }
       });
   },
 
   create: (resource, params) => {
-    if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src) {
+    // if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src && resource !== 'products') {
+    if (!params.data.img_src) {
       return create(resource, params.data, params);
     }
 
@@ -60,7 +69,9 @@ const baseDataProvider = {
           case 'admin-categories':
             return create(resource, {...params.data, img_src: s3_img_url}, params);
           case 'admin-designs':
-            return create(resource, {...params.data, front_img_src: s3_img_url}, params);
+            return create(resource, {...params.data, asset_src: s3_img_url}, params);
+          case 'products':
+            return create(resource, {...params.data, thumbnail_src: s3_img_url}, params);
         }
       });
   },

@@ -87,7 +87,9 @@ export const DesignsCreate = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blurb" />
-      <DesignUpload />
+      <ImageInput format={ loadImageUrl } source="asset_src" label="Image" accept="image/*" validate={required()}>
+        <ImageField source="url" />
+      </ImageInput>
       <ArrayInput source="volunteer_ids">
         <SimpleFormIterator>
           <TextInput />

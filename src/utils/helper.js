@@ -21,7 +21,10 @@ export async function uploadImage(resource, params) {
       break;
     case 'admin-designs':
       data.append('type', 'designs');
-      data.append('file', params.data.front_img_src.rawFile);
+      data.append('file', params.data.asset_src.rawFile);
+    case 'products':
+      data.append('type', 'premium_thumbnail');
+      data.append('file', params.data.thumbnail_src.rawFile);
   }
 
   const response = await fetchTimeout(

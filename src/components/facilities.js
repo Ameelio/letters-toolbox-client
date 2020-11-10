@@ -1,8 +1,14 @@
 import * as React from "react";
-import { EditButton, DeleteButton, List, TextField, Datagrid, FunctionField, BooleanField, Edit, SimpleForm, TextInput, BooleanInput, Create, required } from 'react-admin';
+import { Filter, SearchInput, EditButton, DeleteButton, List, TextField, Datagrid, FunctionField, BooleanField, Edit, SimpleForm, TextInput, BooleanInput, Create, required } from 'react-admin';
+
+const FacilitiesFilter = props => (
+  <Filter {...props}>
+    <SearchInput source="q" alwaysOn />
+  </Filter>
+);
 
 export const FacilitiesList = props => (
-  <List {...props}>
+  <List {...props} filters={<FacilitiesFilter />} >
     <Datagrid rowClick="edit">
       <TextField source="id"/>
       <TextField source="full_name" />
@@ -32,6 +38,7 @@ export const FacilitiesEdit = props => (
       <BooleanInput label="Federal" source="federal" />
       <TextInput source="phone" />
       <TextInput source="link" />
+      <TextInput source="unique" />
     </SimpleForm>
   </Edit>
 );
@@ -49,6 +56,7 @@ export const FacilitiesCreate = props => (
       <BooleanInput label="Federal" source="federal" />
       <TextInput source="phone" />
       <TextInput source="link" />
+      <TextInput source="unique" />
     </SimpleForm>
   </Create>
 );

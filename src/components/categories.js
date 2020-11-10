@@ -21,10 +21,11 @@ export const CategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" validate={required()}/>
-      <TextInput source="blurb" />
-      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*" validate={required()}>
+      <TextInput source="blurb" validate={required()}/>
+      <ImageInput form={ loadImageUrl } source="img_src" title="img_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
+      <BooleanInput label="Premium" source="premium" />
       <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Create>
@@ -37,7 +38,8 @@ export const CategoriesEdit = props => (
       <TextInput source="name" validate={required()} />
       <TextInput source="blurb" validate={required()} />
       <BooleanInput label="Active" source="active" />
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
+      <BooleanInput label="Premium" source="premium" />
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
     </SimpleForm>
