@@ -8,7 +8,7 @@ export const SubcategoriesList = props => (
       <TextField source="name" />
       <DateField source="created_at" />
       <DateField source="updated_at" />
-      <ReferenceField label="Category" source="design_category_id" reference="admin-categories">
+      <ReferenceField label="Category" source="design_category_id" reference="v1/categories">
         <TextField source="name" />
       </ReferenceField>
       <EditButton />
@@ -22,7 +22,7 @@ export const SubcategoriesEdit = props => (
     <SimpleForm>
       <TextInput disabled source="id" />
       <TextInput source="name" validate={required()} />
-      <ReferenceInput label="Category" source="design_category_id" reference="admin-categories" validate={required()}>
+      <ReferenceInput label="Category" source="design_category_id" reference="v1/categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
     </SimpleForm>
@@ -33,7 +33,7 @@ export const SubcategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" validate={required()} />
-      <ReferenceInput label="Category" source="design_category_id" reference="admin-categories" validate={required()}>
+      <ReferenceInput label="Category" source="design_category_id" reference="v1/categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
     </SimpleForm>

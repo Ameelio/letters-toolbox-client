@@ -15,16 +15,16 @@ export async function uploadImage(resource, params) {
   const data = new FormData();
 
   switch (resource) {
-    case 'admin-categories':
+    case 'v1/categories':
       data.append('type', 'compose');
       data.append('file', params.data.img_src.rawFile);
       break;
-    case 'admin-designs':
+    case 'v1/designs':
       data.append('type', 'designs');
-      data.append('file', params.data.asset_src.rawFile);
-    case 'products':
+      data.append('file', params.data.img_src.rawFile);
+    case 'v1/products':
       data.append('type', 'premium_thumbnail');
-      data.append('file', params.data.thumbnail_src.rawFile);
+      data.append('file', params.data.img_src.rawFile);
   }
 
   const response = await fetchTimeout(

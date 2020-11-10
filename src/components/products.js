@@ -20,7 +20,7 @@ export const ProductsCreate = props => (
     <SimpleForm>
       <TextInput source="name" validate={required()}/>
       <NumberInput source="price" validate={required()}/>
-      <ImageInput form={ loadImageUrl } source="thumbnail_src" label="Image" accept="image/*">
+      <ImageInput form={ loadImageUrl } source="img_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
       <BooleanInput label="Premium" source="premium" />

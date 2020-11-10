@@ -60,17 +60,19 @@ const baseDataProvider = {
   create: (resource, params) => {
     // if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src && resource !== 'products') {
     if (!params.data.img_src) {
+      console.log(params.data);
+      console.log("here");
       return create(resource, params.data, params);
     }
 
     return uploadImage(resource, params)
       .then (s3_img_url => {
         switch (resource) {
-          case 'admin-categories':
+          case 'v1/categories':
             return create(resource, {...params.data, img_src: s3_img_url}, params);
-          case 'admin-designs':
+          case 'v1/designs':
             return create(resource, {...params.data, asset_src: s3_img_url}, params);
-          case 'products':
+          case 'v1/products':
             return create(resource, {...params.data, thumbnail_src: s3_img_url}, params);
         }
       });

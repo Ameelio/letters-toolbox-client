@@ -32,7 +32,10 @@ export const UsersEdit = props => (
       <ReferenceManyField label="Letters" reference="v1/letters" target="user_id">
         <Datagrid>
           <TextField source="id" />
-          <TextField source="content" />
+          <TextField source="lob_id" />
+          <TextField source="created_at" />
+          <TextField source="contact_name" />
+          <TextField source="status" />
         </Datagrid>
       </ReferenceManyField>
       </FormTab>
