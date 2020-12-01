@@ -1,6 +1,9 @@
 import fetchTimeout from 'fetch-timeout';
 import url from 'url';
 import { fetchUtils } from 'react-admin';
+import { stringify } from 'query-string';
+
+export const countHeader: string = 'Content-Range';
 
 export const fetchJson = (url, options = {}) => {
   const token = localStorage.getItem('token');
@@ -15,16 +18,22 @@ export async function uploadImage(resource, params) {
   const data = new FormData();
 
   switch (resource) {
-    case 'v1/categories':
+    case 'admin-categories':
       data.append('type', 'compose');
       data.append('file', params.data.img_src.rawFile);
       break;
-    case 'v1/designs':
+    case 'admin-designs':
       data.append('type', 'designs');
       data.append('file', params.data.img_src.rawFile);
-    case 'v1/products':
+      break;
+    case 'products':
       data.append('type', 'premium_thumbnail');
       data.append('file', params.data.img_src.rawFile);
+      break;
+    case 'packet':
+      data.append('type', 'designs');
+      data.append('file', params.data.asset_src.rawFile);
+      break;
   }
 
   const response = await fetchTimeout(
@@ -69,6 +78,34 @@ export async function create(resource, body, params) {
     .then(({ json }) => ({
         data: { ...params.data, id: json.data.id },
     }));
+};
+
+export async function createPacket(resource, body, params) {
+  return uploadImage("packet", params)
+    .then(asset_url => {
+      return create(resource, {...body, asset_src: asset_url}, params);
+    });
+};
+
+export async function getManyReferenceRequest(resource, params, query, options) {
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}/${params.target}?${stringify(query)}`, {
+    method: 'POST',
+  })
+  .then(({ headers, json }) => {
+    if (!headers.has(countHeader)) {
+      throw new Error(
+        `The ${countHeader} header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare ${countHeader} in the Access-Control-Expose-Headers header?`
+      );
+    }
+
+    return {
+      data: json.data,
+      total:
+        countHeader === 'Content-Range'
+        ? parseInt(headers.get('content-range').split('/').pop(), 10)
+        : parseInt(headers.get(countHeader.toLowerCase()))
+    };
+  });
 };
 
 export function loadImageUrl(value) {

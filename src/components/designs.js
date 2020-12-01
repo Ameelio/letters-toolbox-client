@@ -13,13 +13,18 @@ const DesignUpload = props => {
   const { values } = useFormState();
   return (
     values.type === 'postcard' ?
-      <ImageInput format={ loadImageUrl } source="asset_src" label="Image" accept="image/*" validate={required()} {...props}>
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()} {...props}>
         <ImageField source="url" />
       </ImageInput> :
 
-      <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
-        <FileField source="src" title="title" />
-      </FileInput>
+      <div>
+        <ImageInput format={ loadImageUrl } source="img_src" label="Thumbnail" accept="image/*" validate={required()} {...props}>
+          <ImageField source="url" />
+        </ImageInput>
+        <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
+          <FileField source="src" title="title" />
+        </FileInput>
+      </div>
   );
 };
 
@@ -30,10 +35,10 @@ export const DesignsList = props => (
       <DateField source="created_at" />
       <TextField source="name" />
       <ImageField source="thumbnail_src" title="image"/>
-      <ReferenceField label="Subcategory" source="subcategory_id" reference="v1/subcategories">
+      <ReferenceField label="Subcategory" source="subcategory_id" reference="admin-subcategories">
         <TextField source="name" />
       </ReferenceField>
-      <ReferenceField label="Collection" source="design_collection_id" reference="v1/collections">
+      <ReferenceField label="Collection" source="design_collection_id" reference="collections">
         <TextField source="name" />
       </ReferenceField>
       <FunctionField source="active" label="Active" render={(record,source) =>
@@ -50,23 +55,23 @@ export const DesignsEdit = props => (
       <TextInput disabled label="ID" source="id" />
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
-      <ReferenceInput label="Subcategory" source="subcategory_id" reference="v1/subcategories" validate={required()}>
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="v1/collections" validate={required()}>
+      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <ReferenceInput label="Product" source="product_id" reference="v1/products" validate={required()}>
+      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blurb" />
-      <DesignUpload />
-      <ArrayInput source="volunteer_ids">
-        <SimpleFormIterator>
-          <TextInput />
-        </SimpleFormIterator>
-      </ArrayInput>
+      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
+        <ImageField source="url" />
+      </ImageInput>
+      <ReferenceArrayInput label="Volunteers" source="volunteer_ids" reference="volunteers">
+        <SelectArrayInput optionText="first_name" />
+      </ReferenceArrayInput>
     </SimpleForm>
   </Edit>
 );
@@ -76,21 +81,19 @@ export const DesignsCreate = props => (
     <SimpleForm>
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
-      <ReferenceInput label="Subcategory" source="subcategory_id" reference="v1/subcategories" validate={required()}>
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="v1/collections" validate={required()}>
+      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <ReferenceInput label="Product" source="product_id" reference="v1/products" validate={required()}>
+      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blurb" />
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
-        <ImageField source="url" />
-      </ImageInput>
-      <ReferenceArrayInput label="Volunteers" source="volunteer_ids" reference="v1/volunteers">
+      <DesignUpload />
+      <ReferenceArrayInput label="Volunteers" source="volunteer_ids" reference="volunteers">
         <SelectArrayInput optionText="first_name" />
       </ReferenceArrayInput>
     </SimpleForm>

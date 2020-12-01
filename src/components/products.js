@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
+import { EditButton, List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 
 export const ProductsList = props => (
@@ -11,6 +11,7 @@ export const ProductsList = props => (
       <ImageField source="thumbnail_src" title="image" />
       <FunctionField source="premium" label="Premium" render={(record, source) =>
         <BooleanField record={{...record, premium: !!record.premium}} source={source}/>}/>
+      <EditButton />
     </Datagrid>
   </List>
 );
