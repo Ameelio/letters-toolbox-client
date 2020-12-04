@@ -8,6 +8,7 @@ export const CategoriesList = props => (
       <TextField source="id" />
       <TextField source="name" />
       <TextField source="blurb" />
+      <TextField source="type" />
       <ImageField source="img_src" title="Image"/>
       <FunctionField source="active" label="Active" render={(record,source) =>
         <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
@@ -27,6 +28,7 @@ export const CategoriesCreate = props => (
       </ImageInput>
       <BooleanInput label="Premium" source="premium" />
       <BooleanInput label="Active" source="active" />
+      <TextInput source="type" />
     </SimpleForm>
   </Create>
 );
@@ -42,6 +44,7 @@ export const CategoriesEdit = props => (
       <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
+      <TextInput source="type" />
     </SimpleForm>
   </Edit>
 );

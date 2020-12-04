@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
+import { FunctionField, BooleanField, BooleanInput, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
 
 export const SubcategoriesList = props => (
   <List {...props}>
@@ -11,6 +11,8 @@ export const SubcategoriesList = props => (
       <ReferenceField label="Category" source="design_category_id" reference="admin-categories">
         <TextField source="name" />
       </ReferenceField>
+      <FunctionField source="active" label="Active" render={(record,source) =>
+        <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
       <EditButton />
       <DeleteButton />
     </Datagrid>
@@ -26,6 +28,7 @@ export const SubcategoriesEdit = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="bg_color" validate={required()} />
+      <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Edit>
 );
@@ -38,6 +41,7 @@ export const SubcategoriesCreate = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="bg_color" validate={required()} />
+      <BooleanInput label="Active" source="active" />
     </SimpleForm>
   </Create>
 );

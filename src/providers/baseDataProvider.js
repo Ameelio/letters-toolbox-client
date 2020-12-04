@@ -77,10 +77,13 @@ const baseDataProvider = {
   },
 
   update: (resource, params) => {
-    if (resource !== 'admin-categories' && resource !== 'admin-designs' && !params.data.img_src) {
+    if (!params.data.asset_src && !params.data.img_src) {
       return dataProvider.update(resource, params);
     }
 
+    if (typeof params.data.img_src === "string") {
+      return dataProvider.update(resource, params);
+    }
     return uploadImage(resource, params)
       .then( s3_img_url => {
         switch (resource) {

@@ -62,13 +62,11 @@ export const DesignsEdit = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
+      <ReferenceInput label="Product" source="product_id" perPage={100} reference="products" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blurb" />
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()}>
-        <ImageField source="url" />
-      </ImageInput>
+      <DesignUpload />
       <ReferenceArrayInput label="Volunteers" source="volunteer_ids" reference="volunteers">
         <SelectArrayInput optionText="first_name" />
       </ReferenceArrayInput>
@@ -88,7 +86,7 @@ export const DesignsCreate = props => (
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
-      <ReferenceInput label="Product" source="product_id" reference="products" validate={required()}>
+      <ReferenceInput label="Product" source="product_id" reference="products" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blurb" />
