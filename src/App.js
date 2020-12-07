@@ -9,6 +9,7 @@ import { CollectionsList, CollectionsEdit, CollectionsCreate } from './component
 import { UsersList, UsersEdit } from './components/users';
 import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
 import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/facilities';
+import { OrgsList, OrgsEdit, OrgsCreate } from './components/orgs';
 import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
@@ -20,8 +21,14 @@ const App = () => (
       <Resource name="collections" options={{ label: "Collections" }} list={ CollectionsList } edit={ CollectionsEdit } create={ CollectionsCreate } />
       <Resource name="products" options={{ label: "Products" }} list={ ProductsList } edit={ ProductsEdit } create={ ProductsCreate } />
       <Resource name="users" options={{ label: "Users" }} list={ UsersList } edit={ UsersEdit } />
-      <Resource name="mail" />
       <Resource name="facilities" options={{ label: "Facilities" }} list={ FacilitiesList } edit={ FacilitiesEdit } create={ FacilitiesCreate }/>
+      <Resource name="orgs" options={{ label: "Organizations" }} list={ OrgsList } edit={ OrgsEdit } create={ OrgsCreate }/>
+
+      <Resource name="mail" />
+      <Resource name="contacts" />
+      <Resource name="org/users" />
+      <Resource name="credit-transactions" />
+      <Resource name="stripe-transactions" />
     </Admin>
 );
 export default App;

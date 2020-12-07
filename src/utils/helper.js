@@ -70,22 +70,6 @@ export async function loginRequest(params) {
   return body.data;
 };
 
-export async function loginToken(token) {
-  const response = await fetchTimeout(
-    url.resolve(process.env.REACT_APP_URL, 'api/login/token'),
-      {
-        method: 'POST',
-        body: JSON.stringify({token: token}),
-        headers: new Headers({ 'Content-Type': 'application/json'}),
-      },
-      30000
-    );
-
-    const body: ApiResponse = await response.json();
-    if (body.status !== 'OK') throw body;
-    return body.data;
-};
-
 export async function create(resource, body, params) {
   return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}`, {
       method: 'POST',
