@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
+import { ReferenceField, FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
 
 export const UsersList = props => (
   <List {...props}>
@@ -28,8 +28,8 @@ export const UsersEdit = props => (
         <TextInput source="country" validate={required()} />
         <TextInput source="credit_reset" validate={required()} />
       </FormTab>
-      <FormTab label="letters">
-      <ReferenceManyField label="Letters" reference="v1/letters" target="user_id">
+      <FormTab label="Mail">
+      <ReferenceManyField reference="mail" label="Mail" target="_nested_users_id">
         <Datagrid>
           <TextField source="id" />
           <TextField source="lob_id" />
@@ -39,7 +39,25 @@ export const UsersEdit = props => (
         </Datagrid>
       </ReferenceManyField>
       </FormTab>
-      <FormTab label="transactions">
+      <FormTab label="Transactions">
+        <ReferenceManyField reference="credit-transactions" label="Credit Transactions" target="_nested_users_id">
+          <Datagrid>
+            <TextField source="id" />
+            <TextField source="created_at" />
+            <TextField source="letter_id" />
+          </Datagrid>
+        </ReferenceManyField>
+
+        <ReferenceManyField reference="stripe-transactions" label="Stripe Transactions" target="_nested_users_id">
+          <Datagrid>
+            <TextField source="id" />
+            <TextField source="amount" />
+            <TextField source="status" />
+            <ReferenceField source="pack_id" reference="pack" label="Pack">
+              <TextField source="name" />
+            </ReferenceField>
+          </Datagrid>
+        </ReferenceManyField>
       </FormTab>
     </TabbedForm>
   </Edit>

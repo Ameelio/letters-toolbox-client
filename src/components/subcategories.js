@@ -8,7 +8,7 @@ export const SubcategoriesList = props => (
       <TextField source="name" />
       <DateField source="created_at" />
       <DateField source="updated_at" />
-      <ReferenceField label="Category" source="design_category_id" reference="admin-categories">
+      <ReferenceField label="Category" source="design_category_id" reference="categories">
         <TextField source="name" />
       </ReferenceField>
       <FunctionField source="active" label="Active" render={(record,source) =>
@@ -24,7 +24,7 @@ export const SubcategoriesEdit = props => (
     <SimpleForm>
       <TextInput disabled source="id" />
       <TextInput source="name" validate={required()} />
-      <ReferenceInput label="Category" source="design_category_id" reference="admin-categories" validate={required()}>
+      <ReferenceInput label="Category" source="design_category_id" reference="categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="bg_color" validate={required()} />
@@ -37,7 +37,7 @@ export const SubcategoriesCreate = props => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" validate={required()} />
-      <ReferenceInput label="Category" source="design_category_id" reference="admin-categories" validate={required()}>
+      <ReferenceInput label="Category" source="design_category_id" reference="categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="bg_color" validate={required()} />

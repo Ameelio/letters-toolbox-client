@@ -1,5 +1,5 @@
 import simpleRestProvider from 'ra-data-simple-rest';
-import { uploadImage, create, fetchJson, createPacket } from '../utils/helper';
+import { uploadImage, create, fetchJson, createPacket, getManyReference } from '../utils/helper';
 import { stringify } from 'query-string';
 import { fetchUtils, DataProvider } from 'ra-core';
 
@@ -31,49 +31,17 @@ const baseDataProvider = {
   },
 
   getManyReference: (resource, params) => {
-    const { page, perPage } = params.pagination;
-    const { field, order } = params.sort;
-
-    const rangeStart = (page - 1) * perPage;
-    const rangeEnd = page * perPage - 1;
-
-    const query = {
-      sort: JSON.stringify([field, order]),
-      range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-      filter: JSON.stringify(params.filter),
-    };
-    const options =
-      countHeader === 'Content-Range'
-      ? {
-          headers: new Headers({
-            Range: `${resource}=${rangeStart}-${rangeEnd}`,
-          }),
-        }
-        : {};
-
-      return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}/${params.target}?${stringify(query)}`, {
-        method: 'POST',
-      })
-      .then(({ headers, json }) => {
-        if (!headers.has(countHeader)) {
-          throw new Error(
-            `The ${countHeader} header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare ${countHeader} in the Access-Control-Expose-Headers header?`
-          );
-        }
-
-        return {
-          data: json.data,
-          total:
-            countHeader === 'Content-Range'
-            ? parseInt(headers.get('content-range').split('/').pop(), 10)
-            : parseInt(headers.get(countHeader.toLowerCase()))
-        };
-      });
-      // return dataProvider.getManyReference(resource, params)
-      //   .then(resp => ({
-      //     data: resp.data.data,
-      //     total: resp.total,
-      //   }));
+      const nested = /_nested_(.*)_id/g.exec(params.target);
+      if (nested != null) {
+        const endpoint = `${nested[1]}/${params.id}/${resource}`;
+        return getManyReference(resource, params, endpoint);
+      } else {
+        return dataProvider.getManyReference(resource, params)
+          .then(resp => ({
+            data: resp.data.data,
+            total: resp.total,
+          }));
+      }
   },
 
   update: (resource, params) => {
@@ -87,11 +55,11 @@ const baseDataProvider = {
     return uploadImage(resource, params)
       .then( s3_img_url => {
         switch (resource) {
-          case 'admin-categories':
+          case 'categories':
             return dataProvider.update(resource, { ...params,
               data: {...params.data, img_src: s3_img_url},
             });
-          case 'admin-designs':
+          case 'designs':
             return dataProvider.update(resource, { ...params,
               data: {...params.data, asset_src: s3_img_url},
             });
@@ -107,9 +75,9 @@ const baseDataProvider = {
     return uploadImage(resource, params)
       .then (s3_img_url => {
         switch (resource) {
-          case 'admin-categories':
+          case 'categories':
             return create(resource, {...params.data, img_src: s3_img_url}, params);
-          case 'admin-designs':
+          case 'designs':
             if (!params.data.asset_src) {
               return create(resource, {...params.data, asset_src: s3_img_url}, params);
             } else {

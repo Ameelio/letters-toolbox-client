@@ -1,4 +1,4 @@
-import { loginRequest } from '../utils/helper';
+import { loginRequest, loginToken } from '../utils/helper';
 
 const authProvider = {
   login: ({ username, password }) => {

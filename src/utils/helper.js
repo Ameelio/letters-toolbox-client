@@ -18,11 +18,11 @@ export async function uploadImage(resource, params) {
   const data = new FormData();
 
   switch (resource) {
-    case 'admin-categories':
+    case 'categories':
       data.append('type', 'compose');
       data.append('file', params.data.img_src.rawFile);
       break;
-    case 'admin-designs':
+    case 'designs':
       data.append('type', 'designs');
       data.append('file', params.data.img_src.rawFile);
       break;
@@ -56,18 +56,34 @@ export async function uploadImage(resource, params) {
 export async function loginRequest(params) {
   const response = await fetchTimeout(
     url.resolve(process.env.REACT_APP_URL, 'api/login'),
-    {
-      method: 'POST',
-      body: JSON.stringify(params),
-      headers: new Headers({ 'Content-Type': 'application/json'}),
-    },
-    30000
-  );
+      {
+        method: 'POST',
+        body: JSON.stringify(params),
+        headers: new Headers({ 'Content-Type': 'application/json'}),
+      },
+      30000
+    );
 
   const body: ApiResponse = await response.json();
   if (body.status !== 'OK') throw body;
 
   return body.data;
+};
+
+export async function loginToken(token) {
+  const response = await fetchTimeout(
+    url.resolve(process.env.REACT_APP_URL, 'api/login/token'),
+      {
+        method: 'POST',
+        body: JSON.stringify({token: token}),
+        headers: new Headers({ 'Content-Type': 'application/json'}),
+      },
+      30000
+    );
+
+    const body: ApiResponse = await response.json();
+    if (body.status !== 'OK') throw body;
+    return body.data;
 };
 
 export async function create(resource, body, params) {
@@ -87,9 +103,9 @@ export async function createPacket(resource, body, params) {
     });
 };
 
-export async function getManyReferenceRequest(resource, params, query, options) {
-  return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}/${params.target}?${stringify(query)}`, {
-    method: 'POST',
+export async function getManyReference(resource, params, endpoint) {
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+    method: 'GET',
   })
   .then(({ headers, json }) => {
     if (!headers.has(countHeader)) {

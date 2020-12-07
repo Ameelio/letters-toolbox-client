@@ -35,7 +35,7 @@ export const DesignsList = props => (
       <DateField source="created_at" />
       <TextField source="name" />
       <ImageField source="thumbnail_src" title="image"/>
-      <ReferenceField label="Subcategory" source="subcategory_id" reference="admin-subcategories">
+      <ReferenceField label="Subcategory" source="subcategory_id" reference="subcategories">
         <TextField source="name" />
       </ReferenceField>
       <ReferenceField label="Collection" source="design_collection_id" reference="collections">
@@ -55,7 +55,7 @@ export const DesignsEdit = props => (
       <TextInput disabled label="ID" source="id" />
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
-      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" perPage={100} validate={required()}>
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
@@ -79,7 +79,7 @@ export const DesignsCreate = props => (
     <SimpleForm>
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
-      <ReferenceInput label="Subcategory" source="subcategory_id" reference="admin-subcategories" perPage={100} validate={required()}>
+      <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
