@@ -1,5 +1,5 @@
 import simpleRestProvider from 'ra-data-simple-rest';
-import { uploadImage, create, fetchJson, createPacket, getManyReference } from '../utils/helper';
+import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction } from '../utils/helper';
 import { stringify } from 'query-string';
 import { fetchUtils, DataProvider } from 'ra-core';
 
@@ -88,6 +88,10 @@ const baseDataProvider = {
         }
       });
   },
+
+  refundTransaction: (resource, params) => {
+    return refundCreditTransaction(resource, params);
+  }
 };
 
 export default baseDataProvider;

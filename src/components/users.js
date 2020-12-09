@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ShowButton, DeleteButton, SelectInput, Pagination, FunctionField, Filter, ReferenceField, FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
-import { LobField } from '../utils/toolboxComponents';
+import { LobField, RefundButton } from '../utils/toolboxComponents';
 
 const UserFilter = (props) => (
   <Filter {...props}>
@@ -88,6 +88,8 @@ export const UsersEdit = props => (
           <TextField source="id" />
           <TextField source="created_at" />
           <TextField source="letter_id" />
+          <TextField source="status" />
+          <RefundButton />
         </Datagrid>
       </ReferenceManyField>
 

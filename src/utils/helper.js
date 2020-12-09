@@ -108,6 +108,18 @@ export async function getManyReference(resource, params, endpoint) {
   });
 };
 
+export async function refundCreditTransaction(resource, params) {
+  const endpoint = `credit-transactions/${params.id}/refund`;
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+    method: 'GET'
+  })
+  .then(({json}) => {
+    return {
+      data: json.data
+    };
+  });
+};
+
 export function loadImageUrl(value) {
   if (!value || typeof value === "string") {
     return { url: value};
