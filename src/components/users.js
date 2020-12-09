@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ShowButton, DeleteButton, SelectInput, Pagination, FunctionField, Filter, ReferenceField, FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
+import { BooleanField, ShowButton, DeleteButton, SelectInput, Pagination, FunctionField, Filter, ReferenceField, FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
 import { LobField, RefundButton } from '../utils/toolboxComponents';
 
 const UserFilter = (props) => (
@@ -87,8 +87,11 @@ export const UsersEdit = props => (
         <Datagrid>
           <TextField source="id" />
           <TextField source="created_at" />
-          <TextField source="letter_id" />
           <TextField source="status" />
+          <FunctionField source="premium" label="Premium" render={(record,source) =>
+            <BooleanField record={{...record,premium:!!record.premium}} source={source}/>}/>
+          <TextField source="price" />
+          <TextField label="Letter ID" source="letter_id" />
           <RefundButton />
         </Datagrid>
       </ReferenceManyField>

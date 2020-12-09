@@ -88,7 +88,23 @@ export async function createPacket(resource, body, params) {
 };
 
 export async function getManyReference(resource, params, endpoint) {
-  return fetchJson(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+  const { page, perPage } = params.pagination;
+  const { field, order } = params.sort;
+  const rangeStart = (page - 1) * perPage;
+  const rangeEnd = page * perPage - 1;
+  const query = {
+    sort: JSON.stringify([field, order]),
+    range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+  };
+  const options =
+    countHeader === 'Content-Range'
+      ? {
+        headers: new Headers({
+          Range: `${resource}=${rangeStart}-${rangeEnd}`,
+        }),
+      } : {};
+
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${endpoint}?${stringify(query)}`, {
     method: 'GET',
   })
   .then(({ headers, json }) => {
