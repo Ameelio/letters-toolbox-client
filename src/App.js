@@ -10,6 +10,8 @@ import { UsersList, UsersEdit } from './components/users';
 import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
 import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/facilities';
 import { OrgsList, OrgsEdit, OrgsCreate } from './components/orgs';
+import { MailShow, MailList } from './components/mail';
+import { ContactsEdit } from './components/contacts';
 import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
@@ -24,8 +26,8 @@ const App = () => (
       <Resource name="facilities" options={{ label: "Facilities" }} list={ FacilitiesList } edit={ FacilitiesEdit } create={ FacilitiesCreate }/>
       <Resource name="orgs" options={{ label: "Organizations" }} list={ OrgsList } edit={ OrgsEdit } create={ OrgsCreate }/>
 
-      <Resource name="mail" />
-      <Resource name="contacts" />
+      <Resource name="mail" options={{ label: "Mail" }} show={ MailShow }/>
+      <Resource name="contacts" edit={ ContactsEdit }/>
       <Resource name="org/users" />
       <Resource name="credit-transactions" />
       <Resource name="stripe-transactions" />

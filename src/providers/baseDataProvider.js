@@ -31,17 +31,17 @@ const baseDataProvider = {
   },
 
   getManyReference: (resource, params) => {
-      const nested = /_nested_(.*)_id/g.exec(params.target);
-      if (nested != null) {
-        const endpoint = `${nested[1]}/${params.id}/${resource}`;
-        return getManyReference(resource, params, endpoint);
-      } else {
-        return dataProvider.getManyReference(resource, params)
-          .then(resp => ({
-            data: resp.data.data,
-            total: resp.total,
-          }));
-      }
+    const nested = /_nested_(.*)_id/g.exec(params.target);
+    if (nested != null) {
+      const endpoint = `${nested[1]}/${params.id}/${resource}`;
+      return getManyReference(resource, params, endpoint);
+    } else {
+      return dataProvider.getManyReference(resource, params)
+        .then(resp => ({
+          data: resp.data.data,
+          total: resp.total,
+        }));
+    }
   },
 
   update: (resource, params) => {
