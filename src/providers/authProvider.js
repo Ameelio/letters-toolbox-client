@@ -10,7 +10,6 @@ const authProvider = {
     return loginRequest(query)
       .then(login_data => {
         localStorage.setItem('token', login_data.token);
-        console.log("login data " + login_data.api_token_expires);
         localStorage.setItem('token_expires', login_data.api_token_expires);
       });
   },
