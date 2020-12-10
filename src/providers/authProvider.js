@@ -10,6 +10,7 @@ const authProvider = {
     return loginRequest(query)
       .then(login_data => {
         localStorage.setItem('token', login_data.token);
+        localStorage.setItem('token_expires', login_data.api_token_expires);
       });
   },
 
@@ -27,9 +28,12 @@ const authProvider = {
   },
 
   checkAuth: () => {
-    return localStorage.getItem('token')
-      ? Promise.resolve()
-      : Promise.reject();
+    if (localStorage.getItem('token')) {
+      const current = new Date;
+      const expires = new Date(localStorage.getItem('token_expires'));
+      return (expires && current.getTime() < expires) ? Promise.resolve() : Promise.reject();
+    }
+    return Promise.reject();
   },
 
   getPermissions: () => Promise.resolve(),
