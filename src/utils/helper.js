@@ -37,7 +37,7 @@ export async function uploadImage(resource, params) {
   }
 
   const response = await fetchTimeout(
-    url.resolve(process.env.REACT_APP_API_URL, 'file/upload'),
+    url.resolve(process.env.REACT_APP_URL, 'file/upload'),
     {
       method: 'POST',
       headers: new Headers({ Accept: 'application/json'}),
