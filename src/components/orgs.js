@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TabbedForm, FormTab, ReferenceManyField, Filter, SearchInput, ReferenceArrayInput, SelectArrayInput, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { TabbedForm, FormTab, ReferenceManyField, Filter, SearchInput, ReferenceArrayInput, SelectArrayInput, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required } from 'react-admin';
 
 const OrgFilter = props => (
   <Filter {...props}>
@@ -55,11 +55,13 @@ export const OrgsEdit = props => (
       </FormTab>
 
       <FormTab label="Volunteers">
-        <ReferenceManyField reference="users" label="Users" target="_nested_orgs_id">
+        <ReferenceManyField reference="org-users" label="Users" target="_nested_orgs_id">
           <Datagrid>
             <TextField source="id" />
-            <TextField source="first_name" />
-            <TextField source="last_name" />
+            <TextField source="name" />
+            <TextField source="role" />
+            <TextField source="email" />
+            <EditButton />
           </Datagrid>
         </ReferenceManyField>
       </FormTab>
