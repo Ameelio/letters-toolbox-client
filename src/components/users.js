@@ -101,7 +101,7 @@ export const UsersEdit = props => (
           <TextField source="id" />
           <TextField source="amount" />
           <TextField source="status" />
-          <ReferenceField source="pack_id" reference="pack" label="Pack">
+          <ReferenceField source="pack_id" reference="packs" label="Pack">
             <TextField source="name" />
           </ReferenceField>
         </Datagrid>

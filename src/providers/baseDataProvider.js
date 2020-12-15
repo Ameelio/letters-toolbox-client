@@ -1,7 +1,5 @@
 import simpleRestProvider from 'ra-data-simple-rest';
 import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction } from '../utils/helper';
-import { stringify } from 'query-string';
-import { fetchUtils, DataProvider } from 'ra-core';
 
 const dataProvider = simpleRestProvider(process.env.REACT_APP_API_URL, fetchJson);
 const countHeader = 'Content-Range';

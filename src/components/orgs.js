@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TabbedForm, FormTab, ReferenceManyField, Filter, SearchInput, ReferenceArrayInput, SelectArrayInput, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required } from 'react-admin';
+import { AssignOrgUserButton } from '../utils/toolboxComponents'
 
 const OrgFilter = props => (
   <Filter {...props}>
@@ -50,11 +51,13 @@ export const OrgsEdit = props => (
             <TextField source="last_name" />
             <TextField source="facility_name" />
             <FunctionField label="Facility Address" render={record => `${record.facility_address} ${record.facility_city}, ${record.facility_state} ${record.facility_postal}`} />
+            <EditButton />
           </Datagrid>
         </ReferenceManyField>
       </FormTab>
 
       <FormTab label="Volunteers">
+        <AssignOrgUserButton />
         <ReferenceManyField reference="org-users" label="Users" target="_nested_orgs_id">
           <Datagrid>
             <TextField source="id" />

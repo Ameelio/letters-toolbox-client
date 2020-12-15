@@ -12,7 +12,7 @@ import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/f
 import { OrgsList, OrgsEdit, OrgsCreate } from './components/orgs';
 import { MailShow, MailList } from './components/mail';
 import { ContactsEdit } from './components/contacts';
-import { OrgUsersEdit } from './components/orgUsers'
+import { OrgUsersEdit, OrgUsersCreate } from './components/orgUsers'
 import baseDataProvider from './providers/baseDataProvider';
 
 const App = () => (
@@ -28,8 +28,9 @@ const App = () => (
       <Resource name="orgs" options={{ label: "Organizations" }} list={ OrgsList } edit={ OrgsEdit } create={ OrgsCreate }/>
 
       <Resource name="mail" options={{ label: "Mail" }} show={ MailShow }/>
+      <Resource name="packs" />
       <Resource name="contacts" edit={ ContactsEdit }/>
-      <Resource name="org-users" edit={ OrgUsersEdit }/>
+      <Resource name="org-users" edit={ OrgUsersEdit } create={ OrgUsersCreate }/>
       <Resource name="credit-transactions" />
       <Resource name="stripe-transactions" />
     </Admin>
