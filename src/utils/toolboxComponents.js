@@ -17,3 +17,14 @@ export const RefundButton = ({ record }) => {
     <Button label="Refund" onClick={refund} />
   )
 };
+
+export const AssignOrgUserButton = ({ record }) => (
+  <Button
+    component={Link}
+    to={{
+      pathname: "/org-users/create",
+      state: { record: { org_id: record.id }}
+    }}
+    label="Add Org User"
+  />
+);
