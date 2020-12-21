@@ -52,6 +52,7 @@ export const OrgsEdit = props => (
             <TextField source="facility_name" />
             <FunctionField label="Facility Address" render={record => `${record.facility_address} ${record.facility_city}, ${record.facility_state} ${record.facility_postal}`} />
             <EditButton />
+            <DeleteButton />
           </Datagrid>
         </ReferenceManyField>
       </FormTab>
