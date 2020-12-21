@@ -28,3 +28,14 @@ export const AssignOrgUserButton = ({ record }) => (
     label="Add Org User"
   />
 );
+
+export const CreateCreditTransactionButtion = ({ record }) => (
+  <Button
+    component={Link}
+    to={{
+      pathname: "/credit-transactions/create",
+      state: {record: {user_id: record.id}}
+    }}
+    label="Add Credit Transaction"
+  />
+);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BooleanField, ShowButton, DeleteButton, SelectInput, Pagination, FunctionField, Filter, ReferenceField, FormTab, TabbedForm, SingleFieldList, ReferenceManyField, required, Datagrid, TextField, List, EditButton, TextInput, SimpleForm, Edit, Create } from 'react-admin';
-import { LobField, RefundButton } from '../utils/toolboxComponents';
+import { LobField, RefundButton, CreateCreditTransactionButtion } from '../utils/toolboxComponents';
 
 const UserFilter = (props) => (
   <Filter {...props}>
@@ -38,6 +38,7 @@ export const UsersEdit = props => (
       <TextInput disabled source="id" />
       <TextInput source="first_name" validate={required()} />
       <TextInput source="last_name" validate={required()} />
+      <TextInput source="email" validate={required()} />
       <TextInput source="addr_line_1" validate={required()} />
       <TextInput source="addr_line_2" />
       <TextInput source="city" validate={required()} />
@@ -67,7 +68,7 @@ export const UsersEdit = props => (
     </FormTab>
 
     <FormTab label="Mail">
-      <ReferenceManyField reference="mail" label="Mail" target="_nested_users_id" pagination={<Pagination/>}>
+      <ReferenceManyField reference="mail" label="Mail" target="_nested_users_id">
         <Datagrid>
           <TextField source="id" />
           <LobField source="lob_id" />
@@ -83,10 +84,12 @@ export const UsersEdit = props => (
     </FormTab>
 
     <FormTab label="Transactions">
+      <CreateCreditTransactionButtion />
       <ReferenceManyField reference="credit-transactions" label="Credit Transactions" target="_nested_users_id">
         <Datagrid>
           <TextField source="id" />
           <TextField source="created_at" />
+          <TextField source="type" />
           <TextField source="status" />
           <FunctionField source="premium" label="Premium" render={(record,source) =>
             <BooleanField record={{...record,premium:!!record.premium}} source={source}/>}/>
