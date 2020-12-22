@@ -23,15 +23,16 @@ export async function uploadImage(resource, params) {
       data.append('file', params.data.img_src.rawFile);
       break;
     case 'designs':
-      data.append('type', 'designs');
+      const type = params.data.type === 'packet' ? 'thumbnail' : params.data.type;
+      data.append('type', type);
       data.append('file', params.data.img_src.rawFile);
       break;
     case 'products':
-      data.append('type', 'premium_thumbnail');
+      data.append('type', 'thumbnail');
       data.append('file', params.data.img_src.rawFile);
       break;
     case 'packet':
-      data.append('type', 'designs');
+      data.append('type', 'packet');
       data.append('file', params.data.asset_src.rawFile);
       break;
   }
