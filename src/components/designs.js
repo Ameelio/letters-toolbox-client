@@ -37,12 +37,6 @@ const FilterSidebar = () => (
 const DesignUpload = props => {
   const { values } = useFormState();
   switch (values.type) {
-    case 'postcard':
-      return (
-        <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()} {...props}>
-          <ImageField source="url" />
-        </ImageInput>
-      );
     case 'packet':
       return (
         <div>
@@ -54,7 +48,7 @@ const DesignUpload = props => {
           </FileInput>
         </div>
       );
-    case 'sticker':
+    default:
       return (
         <ImageInput format={ loadImageUrl } source="img_src" label="Sticker" accept="image/*" validate={required()} {...props}>
           <ImageField source="url" />
@@ -74,9 +68,6 @@ export const DesignsList = props => (
       <ReferenceField label="Subcategory" source="subcategory_id" reference="subcategories" sortBy="name">
         <TextField source="name" />
       </ReferenceField>
-      <ReferenceField label="Collection" source="design_collection_id" reference="collections">
-        <TextField source="name" />
-      </ReferenceField>
       <FunctionField source="active" label="Active" render={(record,source) =>
         <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
       <EditButton />
@@ -92,9 +83,6 @@ export const DesignsEdit = props => (
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
@@ -116,9 +104,6 @@ export const DesignsCreate = props => (
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />
