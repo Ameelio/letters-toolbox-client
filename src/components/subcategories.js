@@ -27,8 +27,8 @@ export const SubcategoriesEdit = props => (
       <ReferenceInput label="Category" source="design_category_id" reference="categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <TextInput source="bg_color" validate={required()} />
-      <BooleanInput label="Active" source="active" />
+      <TextInput source="bg_color" />
+      <BooleanInput label="Active" source="active" defaultValue={true}/>
     </SimpleForm>
   </Edit>
 );
@@ -40,8 +40,8 @@ export const SubcategoriesCreate = props => (
       <ReferenceInput label="Category" source="design_category_id" reference="categories" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <TextInput source="bg_color" validate={required()} />
-      <BooleanInput label="Active" source="active" />
+      <TextInput source="bg_color" />
+      <BooleanInput label="Active" source="active" defaultValue={true}/>
     </SimpleForm>
   </Create>
 );

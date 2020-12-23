@@ -14,9 +14,13 @@ import { ContactsEdit } from './components/contacts';
 import { OrgUsersEdit, OrgUsersCreate } from './components/orgUsers';
 import { CreditTransactionsCreate } from './components/creditTransactions';
 import baseDataProvider from './providers/baseDataProvider';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import englishMessages from 'ra-language-english';
+
+const i18nProvider = polyglotI18nProvider(() => englishMessages, 'en', { allowMissing: true });
 
 const App = () => (
-    <Admin authProvider={authProvider} dataProvider={ baseDataProvider }>
+    <Admin authProvider={authProvider} dataProvider={ baseDataProvider } i18nProvider={ i18nProvider }>
       <Resource name="designs" options={{ label: "Designs" }} list={ DesignsList } edit={ DesignsEdit } create={ DesignsCreate } />
       <Resource name="categories" options={{ label: "Categories" }} list={ CategoriesList } edit={ CategoriesEdit } create={ CategoriesCreate } />
       <Resource name="subcategories" options={{ label: "Subcategories" }} list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate } />

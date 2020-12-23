@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Filter, SearchInput, EditButton, DeleteButton, List, TextField, Datagrid, FunctionField, BooleanField, Edit, SimpleForm, TextInput, BooleanInput, Create, required } from 'react-admin';
+import { Filter, SearchInput, EditButton, DeleteButton, List, TextField, Datagrid, Edit, SimpleForm, TextInput, BooleanInput, Create, required } from 'react-admin';
 
 const FacilitiesFilter = props => (
   <Filter {...props}>

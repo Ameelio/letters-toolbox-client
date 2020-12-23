@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BooleanField, FunctionField, BooleanInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
+import { BooleanField, FunctionField, BooleanInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
 
 export const VolunteersList = props => (
   <List {...props}>

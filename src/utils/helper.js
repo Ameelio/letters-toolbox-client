@@ -23,13 +23,13 @@ export async function uploadImage(resource, params) {
       data.append('file', params.data.img_src.rawFile);
       break;
     case 'designs':
-      const type = params.data.type === 'packet' ? 'thumbnail' : params.data.type;
-      data.append('type', type);
-      data.append('file', params.data.img_src.rawFile);
+      data.append('type', params.data.type);
+      const img = params.data.type === 'packet' ? params.data.thumbnail_src.rawFile : params.data.asset_src.rawFile;
+      data.append('file', img);
       break;
     case 'products':
       data.append('type', 'thumbnail');
-      data.append('file', params.data.img_src.rawFile);
+      data.append('file', params.data.thumbnail_src.rawFile);
       break;
     case 'packet':
       data.append('type', 'packet');
@@ -88,6 +88,23 @@ export async function createPacket(resource, body, params) {
     });
 };
 
+export async function update(resource, params) {
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}`, {
+    method: 'PUT',
+    body: JSON.stringify(params),
+  })
+  .then (({ json }) => ({
+    data: {...params.data, id: json.data.id},
+  }));
+};
+
+export async function updatePacket(resource, params) {
+  return uploadImage("packet", params)
+    .then(asset_url => {
+      return update(resource, params);
+    });
+};
+
 export async function getManyReference(resource, params, endpoint) {
   const { page, perPage } = params.pagination;
   const { field, order } = params.sort;
@@ -138,7 +155,7 @@ export async function refundCreditTransaction(resource, params) {
 };
 
 export function loadImageUrl(value) {
-  if (!value || typeof value === "string") {
+  if (!value || typeof (value) === "string") {
     return { url: value};
   } else {
     return value;

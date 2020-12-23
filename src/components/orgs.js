@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TabbedForm, FormTab, ReferenceManyField, Filter, SearchInput, ReferenceArrayInput, SelectArrayInput, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required } from 'react-admin';
+import { TabbedForm, FormTab, ReferenceManyField, Filter, FunctionField, BooleanInput, DeleteButton, EditButton, List, Datagrid, TextField, Create, Edit, SimpleForm, TextInput, required } from 'react-admin';
 import { AssignOrgUserButton } from '../utils/toolboxComponents'
 
 const OrgFilter = props => (

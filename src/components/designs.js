@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FilterLiveSearch, Filter, SearchInput, ReferenceArrayInput, SelectArrayInput, FormDataConsumer, FileInput, FileField, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { FilterLiveSearch, ReferenceArrayInput, SelectArrayInput, FileInput, FileField, FunctionField, BooleanInput, BooleanField, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 import { useFormState } from 'react-final-form';
 import { IsActiveFilter, DesignTypeFilter } from '../utils/filters';
@@ -40,7 +40,7 @@ const DesignUpload = props => {
     case 'packet':
       return (
         <div>
-          <ImageInput format={ loadImageUrl } source="img_src" label="Thumbnail" accept="image/*" validate={required()} {...props}>
+          <ImageInput format={ loadImageUrl } source="thumbnail_src" label="Thumbnail" accept="image/*" validate={required()} {...props}>
             <ImageField source="url" />
           </ImageInput>
           <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
@@ -50,7 +50,7 @@ const DesignUpload = props => {
       );
     default:
       return (
-        <ImageInput format={ loadImageUrl } source="img_src" label="Sticker" accept="image/*" validate={required()} {...props}>
+        <ImageInput format={ loadImageUrl } source="asset_src" label="Image" accept="image/*" validate={required()} {...props}>
           <ImageField source="url" />
         </ImageInput>
       );
@@ -70,8 +70,8 @@ export const DesignsList = props => (
       </ReferenceField>
       <FunctionField source="active" label="Active" render={(record,source) =>
         <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
-      <EditButton />
-      <DeleteButton />
+      <EditButton label="Edit"/>
+      <DeleteButton label="Delete"/>
     </Datagrid>
   </List>
 );
@@ -85,7 +85,7 @@ export const DesignsEdit = props => (
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <BooleanInput label="Active" source="active" />
+      <BooleanInput label="Active" source="active" defaultValue={true}/>
       <ReferenceInput label="Product" source="product_id" perPage={100} reference="products" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
