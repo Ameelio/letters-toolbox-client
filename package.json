@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "fetch-timeout": "0.0.2",
     "node-fetch": "^2.6.1",
+    "node-polyglot": "^2.4.0",
     "prop-types": "^15.7.2",
     "ra-data-simple-rest": "^3.8.3",
     "react": "^16.13.1",

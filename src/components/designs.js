@@ -1,50 +1,77 @@
 import * as React from "react";
-import { ReferenceArrayInput, SelectArrayInput, FormDataConsumer, FileInput, FileField, FunctionField, BooleanInput, BooleanField, ArrayInput, SimpleFormIterator, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
+import { FilterLiveSearch, ReferenceArrayInput, SelectArrayInput, FileInput, FileField, FunctionField, BooleanInput, BooleanField, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, ImageField, Create, Edit, SimpleForm, TextInput, required, ImageInput } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
 import { useFormState } from 'react-final-form';
+import { IsActiveFilter, DesignTypeFilter } from '../utils/filters';
+import { Card as MuiCard, CardContent, withStyles } from '@material-ui/core';
 
 const types = [
   { id: 'postcard', name: 'Postcard'},
-  { id: 'letter', name: 'Letter' },
+  { id: 'sticker', name: 'Sticker' },
   { id: 'packet', name: 'Packet'}
 ];
 
+const Card = withStyles(theme => ({
+    root: {
+        [theme.breakpoints.up('sm')]: {
+            order: -1,
+            width: '15em',
+            marginRight: '1em',
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        },
+    },
+}))(MuiCard);
+
+const FilterSidebar = () => (
+  <Card>
+    <CardContent>
+      <FilterLiveSearch source="q" />
+      <IsActiveFilter />
+      <DesignTypeFilter />
+    </CardContent>
+  </Card>
+);
+
 const DesignUpload = props => {
   const { values } = useFormState();
-  return (
-    values.type === 'postcard' ?
-      <ImageInput format={ loadImageUrl } source="img_src" label="Image" accept="image/*" validate={required()} {...props}>
-        <ImageField source="url" />
-      </ImageInput> :
-
-      <div>
-        <ImageInput format={ loadImageUrl } source="img_src" label="Thumbnail" accept="image/*" validate={required()} {...props}>
+  switch (values.type) {
+    case 'packet':
+      return (
+        <div>
+          <ImageInput format={ loadImageUrl } source="thumbnail_src" label="Thumbnail" accept="image/*" validate={required()} {...props}>
+            <ImageField source="url" />
+          </ImageInput>
+          <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
+            <FileField source="src" title="title" />
+          </FileInput>
+        </div>
+      );
+    default:
+      return (
+        <ImageInput format={ loadImageUrl } source="asset_src" label="Image" accept="image/*" validate={required()} {...props}>
           <ImageField source="url" />
         </ImageInput>
-        <FileInput source="asset_src" label="PDF" accept="application/pdf" validate={required()} {...props}>
-          <FileField source="src" title="title" />
-        </FileInput>
-      </div>
-  );
+      );
+  }
 };
 
 export const DesignsList = props => (
-  <List {...props}>
+  <List {...props} aside={<FilterSidebar />}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <DateField source="created_at" />
       <TextField source="name" />
+      <TextField source="type" />
       <ImageField source="thumbnail_src" title="image"/>
-      <ReferenceField label="Subcategory" source="subcategory_id" reference="subcategories">
-        <TextField source="name" />
-      </ReferenceField>
-      <ReferenceField label="Collection" source="design_collection_id" reference="collections">
+      <ReferenceField label="Subcategory" source="subcategory_id" reference="subcategories" sortBy="name">
         <TextField source="name" />
       </ReferenceField>
       <FunctionField source="active" label="Active" render={(record,source) =>
         <BooleanField record={{...record,active:!!record.active}} source={source}/>}/>
-      <EditButton />
-      <DeleteButton />
+      <EditButton label="Edit"/>
+      <DeleteButton label="Delete"/>
     </Datagrid>
   </List>
 );
@@ -58,10 +85,7 @@ export const DesignsEdit = props => (
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-      <BooleanInput label="Active" source="active" />
+      <BooleanInput label="Active" source="active" defaultValue={true}/>
       <ReferenceInput label="Product" source="product_id" perPage={100} reference="products" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
@@ -80,9 +104,6 @@ export const DesignsCreate = props => (
       <TextInput source="name" validate={required()} />
       <SelectInput source="type" validate={required()} choices={ types } />
       <ReferenceInput label="Subcategory" source="subcategory_id" reference="subcategories" perPage={100} validate={required()}>
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-      <ReferenceInput label="Collection" source="design_collection_id" reference="collections" validate={required()}>
         <SelectInput optionText="name" />
       </ReferenceInput>
       <BooleanInput label="Active" source="active" />

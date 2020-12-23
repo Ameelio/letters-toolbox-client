@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextField, SelectInput, Edit, SimpleForm, required, TextInput, Create } from 'react-admin';
+import { TextField, SelectInput, Edit, SimpleForm, TextInput, Create } from 'react-admin';
 
 const redirect = (basePath, id, data) => `/orgs/${data.org_id}`;
 

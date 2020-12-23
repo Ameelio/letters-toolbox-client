@@ -5,7 +5,6 @@ import { CategoriesList, CategoriesEdit, CategoriesCreate } from './components/c
 import { DesignsList, DesignsEdit, DesignsCreate } from './components/designs';
 import { SubcategoriesList, SubcategoriesEdit, SubcategoriesCreate } from './components/subcategories';
 import { VolunteersList, VolunteersEdit, VolunteersCreate } from './components/volunteers';
-import { CollectionsList, CollectionsEdit, CollectionsCreate } from './components/collections';
 import { UsersList, UsersEdit } from './components/users';
 import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
 import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/facilities';
@@ -15,14 +14,17 @@ import { ContactsEdit } from './components/contacts';
 import { OrgUsersEdit, OrgUsersCreate } from './components/orgUsers';
 import { CreditTransactionsCreate } from './components/creditTransactions';
 import baseDataProvider from './providers/baseDataProvider';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import englishMessages from 'ra-language-english';
+
+const i18nProvider = polyglotI18nProvider(() => englishMessages, 'en', { allowMissing: true });
 
 const App = () => (
-    <Admin authProvider={authProvider} dataProvider={ baseDataProvider }>
+    <Admin authProvider={authProvider} dataProvider={ baseDataProvider } i18nProvider={ i18nProvider }>
       <Resource name="designs" options={{ label: "Designs" }} list={ DesignsList } edit={ DesignsEdit } create={ DesignsCreate } />
       <Resource name="categories" options={{ label: "Categories" }} list={ CategoriesList } edit={ CategoriesEdit } create={ CategoriesCreate } />
       <Resource name="subcategories" options={{ label: "Subcategories" }} list={ SubcategoriesList } edit={ SubcategoriesEdit } create={ SubcategoriesCreate } />
       <Resource name="volunteers" options={{ label: "Volunteers" }} list={ VolunteersList } edit={ VolunteersEdit } create={ VolunteersCreate } />
-      <Resource name="collections" options={{ label: "Collections" }} list={ CollectionsList } edit={ CollectionsEdit } create={ CollectionsCreate } />
       <Resource name="products" options={{ label: "Products" }} list={ ProductsList } edit={ ProductsEdit } create={ ProductsCreate } />
       <Resource name="users" options={{ label: "Users" }} list={ UsersList } edit={ UsersEdit } />
       <Resource name="facilities" options={{ label: "Facilities" }} list={ FacilitiesList } edit={ FacilitiesEdit } create={ FacilitiesCreate }/>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Edit, SimpleForm, TextInput, required, Create } from 'react-admin';
+import { Edit, SimpleForm, TextInput, required } from 'react-admin';
 
 export const ContactsEdit = props => (
   <Edit {...props}>

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { EditButton, List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
 import { loadImageUrl } from '../utils/helper';
+import { EditButton, List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
 
 export const ProductsList = props => (
   <List {...props}>
@@ -21,10 +21,10 @@ export const ProductsCreate = props => (
     <SimpleForm>
       <TextInput source="name" validate={required()}/>
       <NumberInput source="price" validate={required()}/>
-      <ImageInput form={ loadImageUrl } source="img_src" label="Image" accept="image/*">
+      <ImageInput form={ loadImageUrl } source="thumbnail_src" title="thumbnail_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
-      <BooleanInput label="Premium" source="premium" />
+      <BooleanInput label="Premium" source="premium" defaultValue={false} />
     </SimpleForm>
   </Create>
 );
@@ -35,7 +35,7 @@ export const ProductsEdit = props => (
       <TextInput disabled label="ID" source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="price" validate={required()} />
-      <ImageInput form={ loadImageUrl } source="thumbnail_src" label="Image" accept="image/*">
+      <ImageInput form={ loadImageUrl } source="thumbnail_src" title="thumbnail_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>
       <BooleanInput label="Premium" source="premium" />

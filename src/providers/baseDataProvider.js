@@ -1,5 +1,5 @@
 import simpleRestProvider from 'ra-data-simple-rest';
-import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction } from '../utils/helper';
+import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction, noUploadedImage, updatePacket } from '../utils/helper';
 
 const dataProvider = simpleRestProvider(process.env.REACT_APP_API_URL, fetchJson);
 const countHeader = 'Content-Range';
@@ -42,31 +42,67 @@ const baseDataProvider = {
     }
   },
 
-  update: (resource, params) => {
-    if (!params.data.asset_src && !params.data.img_src) {
+  update: (resource, params) => { // need to clean up!!
+    if (!params.data.thumbnail_src && !params.data.img_src && !params.data.asset_src) {
       return dataProvider.update(resource, params);
     }
 
-    if (typeof params.data.img_src === "string") {
-      return dataProvider.update(resource, params);
-    }
-    return uploadImage(resource, params)
-      .then( s3_img_url => {
-        switch (resource) {
-          case 'categories':
-            return dataProvider.update(resource, { ...params,
-              data: {...params.data, img_src: s3_img_url},
-            });
-          case 'designs':
-            return dataProvider.update(resource, { ...params,
-              data: {...params.data, asset_src: s3_img_url},
-            });
+    switch (resource) {
+      case 'categories':
+        if (typeof (params.data.img_src) === "string") {
+          return dataProvider.update(resource, params);
         }
-      });
+        return uploadImage(resource, params)
+          .then( s3_img_url => {
+            params.data = {...params.data, img_src: s3_img_url};
+            return dataProvider.update(resource, params);
+          });
+      case 'products':
+        if (typeof (params.data.thumbnail_src) === "string") {
+          return dataProvider.update(resource, params);
+        }
+        return uploadImage(resource, params)
+          .then( s3_img_url => {
+            params.data = {...params.data, thumbnail_src: s3_img_url};
+            return dataProvider.update(resource, params);
+          });
+      case 'designs':
+        if (params.data.type === "packet") {
+          if (typeof (params.data.asset_src) === "string" && typeof (params.data.thumbnail_src) === "string") {
+            return dataProvider.update(resource, params);
+          } else if (typeof (params.data.asset_src) === "string" && typeof (params.data.thumbnail_src) !== "string") {
+            return uploadImage("packet", params)
+              .then( s3_img_url => {
+                params.data = {...params.data, thumbnail_src: s3_img_url};
+                return dataProvider.update(resource, params);
+              });
+          } else if (typeof (params.data.asset_src) !== "string" && typeof (params.data.thumbnail_src) === "string" ) {
+            return uploadImage(resource, params)
+              .then( s3_img_url => {
+                params.data = {...params.data, asset_src: s3_img_url};
+                return dataProvider.update(resource, params);
+              });
+          }
+          return uploadImage(resource, params)
+            .then( s3_img_url => {
+              params.data = {...params.data, asset_src: s3_img_url};
+              return updatePacket(resource, params);
+            });
+
+        } else if (typeof (params.data.asset_src) === "string") {
+          return dataProvider.update(resource, params);
+        }
+
+        return uploadImage(resource, params)
+          .then( s3_img_url => {
+            params.data = {...params.data, asset_src: s3_img_url};
+            return dataProvider.update(resource, params);
+          });
+    }
   },
 
   create: (resource, params) => {
-    if (!params.data.img_src && !params.data.asset_src) {
+    if (!params.data.img_src && !params.data.asset_src && !params.data.thumbnail_src) {
       return create(resource, params.data, params);
     }
 
@@ -76,11 +112,10 @@ const baseDataProvider = {
           case 'categories':
             return create(resource, {...params.data, img_src: s3_img_url}, params);
           case 'designs':
-            if (!params.data.asset_src) {
-              return create(resource, {...params.data, asset_src: s3_img_url}, params);
-            } else {
-              return createPacket(resource, {...params.data, thumbnail_src: s3_img_url}, params);
+            if (params.data.type === 'packet') {
+              return createPacket(resource, {...params.data, asset_src: s3_img_url}, params);
             }
+            return create(resource, {...params.data, asset_src: s3_img_url}, params);
           case 'products':
             return create(resource, {...params.data, thumbnail_src: s3_img_url}, params);
         }

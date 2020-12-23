@@ -23,16 +23,16 @@ export async function uploadImage(resource, params) {
       data.append('file', params.data.img_src.rawFile);
       break;
     case 'designs':
-      data.append('type', 'designs');
-      data.append('file', params.data.img_src.rawFile);
+      data.append('type', params.data.type);
+      data.append('file', params.data.asset_src.rawFile);
       break;
     case 'products':
-      data.append('type', 'premium_thumbnail');
-      data.append('file', params.data.img_src.rawFile);
+      data.append('type', 'thumbnail');
+      data.append('file', params.data.thumbnail_src.rawFile);
       break;
     case 'packet':
-      data.append('type', 'designs');
-      data.append('file', params.data.asset_src.rawFile);
+      data.append('type', 'packet');
+      data.append('file', params.data.thumbnail_src.rawFile);
       break;
   }
 
@@ -82,8 +82,26 @@ export async function create(resource, body, params) {
 
 export async function createPacket(resource, body, params) {
   return uploadImage("packet", params)
-    .then(asset_url => {
-      return create(resource, {...body, asset_src: asset_url}, params);
+    .then(thumbnail_url => {
+      return create(resource, {...body, thumbnail_src: thumbnail_url}, params);
+    });
+};
+
+export async function update(resource, params) {
+  return fetchJson(`${process.env.REACT_APP_API_URL}/${resource}/${params.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(params.data),
+  })
+  .then (({ json }) => ({
+    data: {...json.data, id: json.data.id},
+  }));
+};
+
+export async function updatePacket(resource, params) {
+  return uploadImage("packet", params)
+    .then(thumbnail_url => {
+      params.data = {...params.data, thumbnail_src: thumbnail_url};
+      return update(resource, params);
     });
 };
 
@@ -137,9 +155,12 @@ export async function refundCreditTransaction(resource, params) {
 };
 
 export function loadImageUrl(value) {
-  if (!value || typeof value === "string") {
+  console.log("hello?");
+  if (!value || typeof (value) === "string") {
+    console.log("string");
     return { url: value};
   } else {
+    console.log(value);
     return value;
   }
-}
+};
