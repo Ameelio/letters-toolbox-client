@@ -25,6 +25,7 @@ export const ProductsCreate = props => (
         <ImageField source="url" />
       </ImageInput>
       <BooleanInput label="Premium" source="premium" defaultValue={false} />
+      <NumberInput source="cost" label="Unit cost (in cents e.g $4.99 = 499)"  validate={required()}/>
     </SimpleForm>
   </Create>
 );
@@ -35,6 +36,7 @@ export const ProductsEdit = props => (
       <TextInput disabled label="ID" source="id" />
       <TextInput source="name" validate={required()} />
       <TextInput source="price" validate={required()} />
+      <NumberInput source="cost" label="Unit cost (in cents e.g $4.99 = 499)"  validate={required()}/>
       <ImageInput form={ loadImageUrl } source="thumbnail_src" title="thumbnail_src" label="Image" accept="image/*">
         <ImageField source="url" />
       </ImageInput>

@@ -46,8 +46,8 @@ export const UsersEdit = props => (
       <TextInput source="postal" validate={required()} />
       <TextInput source="country" validate={required()} />
       <TextInput label="Credits" source="credit" validate={required()} />
-      <TextInput lavel="Tokens" source="coins" validate={required()} />
       <TextInput source="credit_reset" validate={required()} />
+      <TextInput source="coins" validate={required()} />
       <SelectInput disabled source="referer" choices={referrerChoices} />
     </FormTab>
 
