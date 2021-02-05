@@ -1,8 +1,7 @@
 import simpleRestProvider from 'ra-data-simple-rest';
-import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction, noUploadedImage, updatePacket } from '../utils/helper';
+import { uploadImage, create, fetchJson, createPacket, getManyReference, refundCreditTransaction, updatePacket } from '../utils/helper';
 
 const dataProvider = simpleRestProvider(process.env.REACT_APP_API_URL, fetchJson);
-const countHeader = 'Content-Range';
 
 const baseDataProvider = {
   ...dataProvider,
@@ -98,6 +97,8 @@ const baseDataProvider = {
             params.data = {...params.data, asset_src: s3_img_url};
             return dataProvider.update(resource, params);
           });
+        default:
+          break
     }
   },
 
@@ -118,6 +119,8 @@ const baseDataProvider = {
             return create(resource, {...params.data, asset_src: s3_img_url}, params);
           case 'products':
             return create(resource, {...params.data, thumbnail_src: s3_img_url}, params);
+          default:
+            break;
         }
       });
   },

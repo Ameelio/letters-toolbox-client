@@ -29,7 +29,7 @@ const authProvider = {
 
   checkAuth: () => {
     if (localStorage.getItem('token')) {
-      const current = new Date;
+      const current = new Date();
       const expires = new Date(localStorage.getItem('token_expires'));
       return (expires && current.getTime() < expires) ? Promise.resolve() : Promise.reject();
     }

@@ -34,6 +34,8 @@ export async function uploadImage(resource, params) {
       data.append('type', 'packet');
       data.append('file', params.data.thumbnail_src.rawFile);
       break;
+    default:
+      break;
   }
 
   const response = await fetchTimeout(
@@ -112,15 +114,8 @@ export async function getManyReference(resource, params, endpoint) {
   const rangeEnd = page * perPage - 1;
   const query = {
     sort: JSON.stringify([field, order]),
-    range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+    range: JSON.stringify([rangeStart, rangeEnd]),
   };
-  const options =
-    countHeader === 'Content-Range'
-      ? {
-        headers: new Headers({
-          Range: `${resource}=${rangeStart}-${rangeEnd}`,
-        }),
-      } : {};
 
   return fetchJson(`${process.env.REACT_APP_API_URL}/${endpoint}?${stringify(query)}`, {
     method: 'GET',

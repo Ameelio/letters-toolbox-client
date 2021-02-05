@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link, useMutation, Button } from 'react-admin';
-import { OrgUsersEdit } from '../components/orgUsers';
 
 export const LobField = ({ source, record = {} }) =>
   <a href={"https://dashboard.lob.com/#/letters/" + record[source]}>{record[source]}</a>;

@@ -9,7 +9,7 @@ import { UsersList, UsersEdit } from './components/users';
 import { ProductsList, ProductsEdit, ProductsCreate } from './components/products';
 import { FacilitiesList, FacilitiesEdit, FacilitiesCreate } from './components/facilities';
 import { OrgsList, OrgsEdit, OrgsCreate } from './components/orgs';
-import { MailShow, MailList } from './components/mail';
+import { MailShow } from './components/mail';
 import { ContactsEdit } from './components/contacts';
 import { OrgUsersEdit, OrgUsersCreate } from './components/orgUsers';
 import { CreditTransactionsCreate } from './components/creditTransactions';
