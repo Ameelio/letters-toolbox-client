@@ -8,6 +8,13 @@ export const IsActiveFilter = () => (
   </FilterList>
 );
 
+export const IsColoredFilter = () => (
+  <FilterList label="Color">
+    <FilterListItem label="True" value={{color: true}} />
+    <FilterListItem label="False" value={{color: false}} />
+  </FilterList>
+);
+
 export const DesignTypeFilter = () => (
   <FilterList label="Type">
     <FilterListItem label="Postcard" value={{type: 'postcard'}} />

@@ -1,8 +1,13 @@
 import * as React from "react";
-import { FunctionField, BooleanField, BooleanInput, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
+import { Filter, FunctionField, BooleanField, BooleanInput, ReferenceInput, SelectInput, DeleteButton, EditButton, List, Datagrid, TextField, ReferenceField, DateField, SimpleForm, TextInput, Edit, Create, required } from 'react-admin';
 
+const SubcategoriesFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label="Search" source="q" alwaysOn />
+  </Filter>
+);
 export const SubcategoriesList = props => (
-  <List {...props}>
+  <List {...props} filters={<SubcategoriesFilter />}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="name" />

@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { loadImageUrl } from '../utils/helper';
-import { EditButton, List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
+import { Filter, EditButton, List, Datagrid, TextField, NumberInput, FunctionField, BooleanField, Create, SimpleForm, TextInput, ImageInput, ImageField, BooleanInput, required, Edit } from 'react-admin';
+
+const ProductsFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label="Search" source="q" alwaysOn />
+  </Filter>
+);
 
 export const ProductsList = props => (
-  <List {...props}>
+  <List filters={<ProductsFilter />}  {...props}>
     <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
