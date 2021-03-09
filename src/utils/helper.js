@@ -3,7 +3,7 @@ import url from 'url';
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-export const countHeader: string = 'Content-Range';
+export const countHeader = 'Content-Range';
 
 export const fetchJson = (url, options = {}) => {
   const token = localStorage.getItem('token');
@@ -48,7 +48,7 @@ export async function uploadImage(resource, params) {
     30000
   );
 
-  const body: ApiResponse = await response.json();
+  const body = await response.json();
   if ( body.status !== 'OK') throw body;
 
   const s3_img_url = body.data;
@@ -66,7 +66,7 @@ export async function loginRequest(params) {
       30000
     );
 
-  const body: ApiResponse = await response.json();
+  const body = await response.json();
   if (body.status !== 'OK') throw body;
 
   return body.data;
