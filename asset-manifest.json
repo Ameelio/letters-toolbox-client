@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/letters-toolbox-client/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/letters-toolbox-client/static/js/main.b69179b5.chunk.js",
-    "main.js.map": "/letters-toolbox-client/static/js/main.b69179b5.chunk.js.map",
+    "main.js": "/letters-toolbox-client/static/js/main.72fd2360.chunk.js",
+    "main.js.map": "/letters-toolbox-client/static/js/main.72fd2360.chunk.js.map",
     "runtime-main.js": "/letters-toolbox-client/static/js/runtime-main.844400fb.js",
     "runtime-main.js.map": "/letters-toolbox-client/static/js/runtime-main.844400fb.js.map",
     "static/js/2.fc1eb5b6.chunk.js": "/letters-toolbox-client/static/js/2.fc1eb5b6.chunk.js",
     "static/js/2.fc1eb5b6.chunk.js.map": "/letters-toolbox-client/static/js/2.fc1eb5b6.chunk.js.map",
     "index.html": "/letters-toolbox-client/index.html",
-    "precache-manifest.475a88b35b83a814e9d696e0343b6722.js": "/letters-toolbox-client/precache-manifest.475a88b35b83a814e9d696e0343b6722.js",
+    "precache-manifest.2b92db41440fc0b0b87dad434c2fc788.js": "/letters-toolbox-client/precache-manifest.2b92db41440fc0b0b87dad434c2fc788.js",
     "service-worker.js": "/letters-toolbox-client/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/letters-toolbox-client/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.fc1eb5b6.chunk.js.LICENSE.txt": "/letters-toolbox-client/static/js/2.fc1eb5b6.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.844400fb.js",
     "static/js/2.fc1eb5b6.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.b69179b5.chunk.js"
+    "static/js/main.72fd2360.chunk.js"
   ]
 }
