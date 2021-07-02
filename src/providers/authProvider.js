@@ -1,37 +1,35 @@
-import { loginRequest } from '../utils/helper';
+import { loginRequest } from "../utils/helper";
 
 const authProvider = {
   login: ({ username, password }) => {
     const query = {
       email: username,
-      password: password
+      password: password,
     };
 
     return loginRequest(query)
-      .then(login_data => {
-        localStorage.setItem('token', login_data.token);
-        localStorage.setItem('token_expires', login_data.api_token_expires);
-      });
+      .then((login_data) => {
+        localStorage.setItem("token", login_data.token);
+      })
+      .catch((err) => console.log("[Auth] Login error", err));
   },
 
   logout: () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     return Promise.resolve();
   },
 
   checkError: ({ status }) => {
     if (status === 401) {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       return Promise.reject();
     }
     return Promise.resolve();
   },
 
   checkAuth: () => {
-    if (localStorage.getItem('token')) {
-      const current = new Date();
-      const expires = new Date(localStorage.getItem('token_expires'));
-      return (expires && current.getTime() < expires) ? Promise.resolve() : Promise.reject();
+    if (localStorage.getItem("token")) {
+      return Promise.resolve();
     }
     return Promise.reject();
   },

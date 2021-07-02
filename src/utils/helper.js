@@ -49,7 +49,7 @@ export async function uploadImage(resource, params) {
   );
 
   const body = await response.json();
-  if ( body.status !== 'OK') throw body;
+  if ( body.status !== 200 && body.status !== 201 && body.status !== 'OK') throw body;
 
   const s3_img_url = body.data;
   return s3_img_url;
@@ -57,17 +57,17 @@ export async function uploadImage(resource, params) {
 
 export async function loginRequest(params) {
   const response = await fetchTimeout(
-    url.resolve(process.env.REACT_APP_URL, 'api/login'),
+   `${process.env.REACT_APP_API_URL}/login`,
       {
         method: 'POST',
         body: JSON.stringify(params),
-        headers: new Headers({ 'Content-Type': 'application/json'}),
+        headers: new Headers({ 'Content-Type': 'application/json',  Accept: 'application/json' }),
       },
       30000
     );
 
   const body = await response.json();
-  if (body.status !== 'OK') throw body;
+  if (body.status !== 200) throw body;
 
   return body.data;
 };
